@@ -7,7 +7,7 @@ rust-version = "1.92.0"
 publish = false
 
 [dependencies]
-error-stack = "0.6.0"
+error-stack = "0.7.0"
 error-stack-macros2 = { path = "../impl" }
 
 [lints.rust]

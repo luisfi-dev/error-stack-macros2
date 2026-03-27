@@ -1,7 +1,7 @@
 //! [![crates.io latest version](https://img.shields.io/crates/v/error-stack-macros2?label=version&logo=rust)](https://crates.io/crates/error-stack-macros2)
 //! [![crates.io downloads](https://img.shields.io/crates/d/error-stack-macros2)](https://crates.io/crates/error-stack-macros2)
-//! [![Tests status](https://img.shields.io/github/actions/workflow/status/LuisFerLCC/error-stack-macros2/test.yml?branch=master&label=tests)](https://github.com/LuisFerLCC/error-stack-macros2/actions/workflows/test.yml)
-//! [![Contributor Covenant Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-3.0-5e0d73?logo=contributorcovenant)](https://github.com/LuisFerLCC/error-stack-macros2/blob/master/.github/CODE_OF_CONDUCT.md)
+//! [![Tests status](https://img.shields.io/github/actions/workflow/status/luisfi-dev/error-stack-macros2/test.yml?branch=master&label=tests)](https://github.com/luisfi-dev/error-stack-macros2/actions/workflows/test.yml)
+//! [![Contributor Covenant Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-3.0-5e0d73?logo=contributorcovenant)](https://github.com/luisfi-dev/error-stack-macros2/blob/master/.github/CODE_OF_CONDUCT.md)
 //!
 //! Community-made procedural macros for [`error-stack`].
 //!
@@ -74,12 +74,12 @@
 //! # Support
 //!
 //! Need help using `error-stack-macros2`? Don't hesitate to reach out on
-//! [GitHub Discussions](https://github.com/LuisFerLCC/error-stack-macros2/discussions/categories/q-a)!
+//! [GitHub Discussions](https://github.com/luisfi-dev/error-stack-macros2/discussions/categories/q-a)!
 //!
 //! # Links
 //!
 //! -   [Documentation]
-//! -   [GitHub](https://github.com/LuisFerLCC/error-stack-macros2)
+//! -   [GitHub](https://github.com/luisfi-dev/error-stack-macros2)
 //! -   [crates.io](https://crates.io/crates/error-stack-macros2)
 //!
 //! # Contributing
@@ -90,14 +90,14 @@
 //!     make sure the error is actually a bug and not a mistake of your own.
 //! -   Make sure the issue hasn't already been reported or suggested.
 //! -   Please report any security vulnerabilities privately through
-//!     [Security Advisories](https://github.com/LuisFerLCC/error-stack-macros2/security/advisories/new).
+//!     [Security Advisories](https://github.com/luisfi-dev/error-stack-macros2/security/advisories/new).
 //! -   After following these steps, you can file an issue using one of our
-//!     [templates](https://github.com/LuisFerLCC/error-stack-macros2/issues/new/choose).
+//!     [templates](https://github.com/luisfi-dev/error-stack-macros2/issues/new/choose).
 //!     Please make sure to follow our
-//!     [Code of Conduct](https://github.com/LuisFerLCC/error-stack-macros2/blob/master/.github/CODE_OF_CONDUCT.md).
-//! -   If you wish to [submit a pull request](https://github.com/LuisFerLCC/error-stack-macros2/compare)
+//!     [Code of Conduct](https://github.com/luisfi-dev/error-stack-macros2/blob/master/.github/CODE_OF_CONDUCT.md).
+//! -   If you wish to [submit a pull request](https://github.com/luisfi-dev/error-stack-macros2/compare)
 //!     alongside your issue, please follow our
-//!     [contribution guidelines](https://github.com/LuisFerLCC/error-stack-macros2/blob/master/.github/CONTRIBUTING.md).
+//!     [contribution guidelines](https://github.com/luisfi-dev/error-stack-macros2/blob/master/.github/CONTRIBUTING.md).
 //!
 //! # Disclaimer
 //!

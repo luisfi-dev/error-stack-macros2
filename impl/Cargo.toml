@@ -1,12 +1,12 @@
 [package]
 name = "error-stack-macros2"
 version = "0.2.1"
-authors = ["LuisFerLCC"]
+authors = ["luisfi-dev"]
 edition = "2024"
 rust-version = "1.92.0"
 description = "Community-made procedural macros for error-stack."
 readme = "../README.md"
-repository = "https://github.com/LuisFerLCC/error-stack-macros2"
+repository = "https://github.com/luisfi-dev/error-stack-macros2"
 license = "Apache-2.0"
 keywords = ["error", "errorstack", "error-handling", "macros", "proc-macro"]
 categories = ["development-tools", "rust-patterns"]

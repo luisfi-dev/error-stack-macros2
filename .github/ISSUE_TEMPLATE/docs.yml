@@ -3,7 +3,7 @@ description: Is there something wrong or missing in the documentation?
 title: DOCS - (brief description)
 labels:
   - 📄 Documentation
-assignees: LuisFerLCC
+assignees: luisfi-dev
 
 body:
   - type: markdown
@@ -49,11 +49,11 @@ body:
       description: By submitting this issue, you agree that...
       options:
         - label: This is a documentation issue, not you [asking for
-            support](https://github.com/LuisFerLCC/error-stack-macros2/discussions/categories/q-a).
+            support](https://github.com/luisfi-dev/error-stack-macros2/discussions/categories/q-a).
           required: true
         - label: The issue has not already been reported.
           required: true
         - label: You are following the project's [Code of
-            Conduct](https://github.com/LuisFerLCC/error-stack-macros2/blob/master/.github/CODE_OF_CONDUCT.md) and [contribution
-            guidelines](https://github.com/LuisFerLCC/error-stack-macros2/blob/master/.github/CONTRIBUTING.md).
+            Conduct](https://github.com/luisfi-dev/error-stack-macros2/blob/master/.github/CODE_OF_CONDUCT.md) and [contribution
+            guidelines](https://github.com/luisfi-dev/error-stack-macros2/blob/master/.github/CONTRIBUTING.md).
           required: true

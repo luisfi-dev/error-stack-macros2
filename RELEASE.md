@@ -17,4 +17,4 @@ All dependencies have been updated to their latest versions, which in this case 
 
 ## Previous release notes
 
-If you want to take a look at the notes from previous releases, go to [GitHub Releases](https://github.com/LuisFerLCC/error-stack-macros2/releases).
+If you want to take a look at the notes from previous releases, go to [GitHub Releases](https://github.com/luisfi-dev/error-stack-macros2/releases).

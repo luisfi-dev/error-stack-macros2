@@ -11,7 +11,7 @@ updates:
     labels:
       - "📦 Dependencies"
     assignees:
-      - LuisFerLCC
+      - luisfi-dev
 
   # Development dependencies (e.g., [dev-dependencies])
   - package-ecosystem: "cargo"
@@ -23,4 +23,4 @@ updates:
     labels:
       - "💻 Dev Dependencies"
     assignees:
-      - LuisFerLCC
+      - luisfi-dev

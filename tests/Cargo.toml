@@ -1,7 +1,7 @@
 [package]
 name = "error-stack-macros2-tests"
 version = "0.2.1"
-authors = ["LuisFerLCC"]
+authors = ["luisfi-dev"]
 edition = "2024"
 rust-version = "1.92.0"
 publish = false

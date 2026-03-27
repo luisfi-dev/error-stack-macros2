@@ -18,7 +18,7 @@ jobs:
   sync:
     name: Sync labels
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'LuisFerLCC'
+    if: github.repository_owner == 'luisfi-dev'
 
     steps:
       - name: Checkout repository

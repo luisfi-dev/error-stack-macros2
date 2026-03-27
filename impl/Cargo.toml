@@ -21,7 +21,7 @@ regex = "1.12.3"
 syn = { version = "2.0.117", features = [] }
 
 [dev-dependencies]
-error-stack = "0.6.0"
+error-stack = "0.7.0"
 
 [lints.rust]
 ambiguous_glob_reexports = "deny"

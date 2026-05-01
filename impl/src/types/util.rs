@@ -8,6 +8,15 @@ use syn::{
     token::{Colon, Comma},
 };
 
+pub(crate) const ATTRIBUTES_TO_REMOVE: [&str; 6] = [
+    "deprecated",
+    "must_use",
+    "no_mangle",
+    "non_exhaustive",
+    "repr",
+    "unsafe",
+];
+
 pub(crate) enum ReducedGenericParam {
     ConstOrType(Ident),
     Lifetime(Lifetime),

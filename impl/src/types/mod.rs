@@ -13,6 +13,8 @@ use fmt::TypeData;
 mod util;
 use util::ReducedGenerics;
 
+use crate::types::util::ATTRIBUTES_TO_REMOVE;
+
 pub(crate) struct ErrorStackDeriveInput {
     other_attrs: OtherAttributes,
     ident: Ident,
@@ -115,7 +117,10 @@ impl OtherAttributes {
         for attr in attrs {
             if attr.path().is_ident("display") {
                 display_attr = Some(attr);
-            } else if !attr.path().is_ident("non_exhaustive") {
+            } else if !ATTRIBUTES_TO_REMOVE
+                .iter()
+                .any(|name| attr.path().is_ident(name))
+            {
                 other_attrs_vec.push(attr);
             }
         }

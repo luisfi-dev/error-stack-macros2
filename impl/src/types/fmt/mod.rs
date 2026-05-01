@@ -4,12 +4,7 @@ use std::fmt::{self, Debug, Formatter};
 
 use proc_macro2::{Span, TokenStream as TokenStream2};
 use quote::{ToTokens, quote};
-use syn::{
-    Attribute, Data, Fields, Ident, LitStr, Type, spanned::Spanned as _,
-};
-
-mod input;
-use input::VariantFormatInput;
+use syn::{Attribute, Data, Ident, LitStr, Type};
 
 mod util;
 

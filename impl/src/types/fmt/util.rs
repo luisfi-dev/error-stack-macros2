@@ -53,7 +53,9 @@ pub(crate) fn collect_valid_variant_states(
     variants: Punctuated<Variant, Comma>,
 ) -> Result<Vec<ValidVariantState>, syn::Error> {
     let mut variant_states_iter = variants.into_iter().map(|variant| {
+        use super::FieldsType as FT;
         use VariantState as VS;
+        use syn::Fields as F;
 
         let variant_span = variant.span();
         drop(variant.discriminant);
@@ -75,7 +77,11 @@ pub(crate) fn collect_valid_variant_states(
                 Ok(input) => VS::Valid(VariantData {
                     other_attrs: attrs,
                     ident: variant.ident,
-                    fields: variant.fields,
+                    fields_type: match variant.fields {
+                        F::Named(_) => FT::Named,
+                        F::Unnamed(_) => FT::Unnamed,
+                        F::Unit => FT::Unit,
+                    },
                     display_input: input,
                 }),
                 Err(err) => VS::Invalid(err),

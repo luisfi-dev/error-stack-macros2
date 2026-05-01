@@ -97,7 +97,7 @@ mod tests {
     fn tuple_variant_works_with_interpolation_of_some_fields() {
         #[derive(Debug, Error)]
         enum EnumType {
-            #[display("tuple variant: point with y value {1}")]
+            #[display("tuple variant: point with y value")]
             Tuple(isize, isize, isize),
         }
 
@@ -113,7 +113,7 @@ mod tests {
         #[derive(Debug, Error)]
         enum EnumType {
             #[display(
-                "tuple variant: point {2} units in front of the origin, and with x and y coords ({0}, {1})"
+                "tuple variant: point units in front of the origin, and with x and y coords"
             )]
             Tuple(isize, isize, isize),
         }

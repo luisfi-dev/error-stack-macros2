@@ -34,7 +34,7 @@ mod tests {
     #[test]
     fn named_field_struct_works_with_interpolation_of_some_fields() {
         #[derive(Debug, Error)]
-        #[display("named field struct: {inner:?} has {length} characters")]
+        #[display("named field struct: has characters")]
         struct NamedFieldStructType {
             length: usize,
             _is_ascii: bool,
@@ -55,9 +55,7 @@ mod tests {
     #[test]
     fn named_field_struct_works_with_interpolation_of_all_fields() {
         #[derive(Debug, Error)]
-        #[display(
-            "named field struct: {inner:?} has {length} characters and is ascii={is_ascii}"
-        )]
+        #[display("named field struct: has characters and is ascii")]
         struct NamedFieldStructType {
             length: usize,
             is_ascii: bool,
@@ -78,7 +76,7 @@ mod tests {
     #[test]
     fn named_field_struct_works_with_type_parameters() {
         #[derive(Debug, Error)]
-        #[display("T = {t}, U = {u:?}")]
+        #[display("T, U")]
         struct NamedFieldStructType<T: Display, U: Debug = Vec<u8>> {
             t: T,
             u: U,
@@ -94,9 +92,7 @@ mod tests {
     #[test]
     fn named_field_struct_works_with_lifetime_parameters() {
         #[derive(Debug, Error)]
-        #[display(
-            "string_a = {string_a}, string_b = {string_b}, slice = {slice:?}"
-        )]
+        #[display("string_a, string_b, slice")]
         struct NamedFieldStructType<'a, 'b: 'a> {
             string_a: &'a str,
             string_b: &'b str,
@@ -117,7 +113,7 @@ mod tests {
     #[test]
     fn named_field_struct_works_with_const_parameters() {
         #[derive(Debug, Error)]
-        #[display("inner = {inner}")]
+        #[display("inner")]
         struct NamedFieldStructType<const LENGTH: usize, const BYTE: u8 = 172> {
             inner: u8,
         }
@@ -136,7 +132,7 @@ mod tests {
         const STRING: &str = "t ref";
 
         #[derive(Debug, Error)]
-        #[display("t_ref = {t_ref:?}")]
+        #[display("t_ref")]
         struct NamedFieldStructType<'a, T>
         where
             'a: 'static,
@@ -170,7 +166,7 @@ mod tests {
     )]
     fn tuple_struct_works_with_interpolation_of_some_fields() {
         #[derive(Debug, Error)]
-        #[display("tuple struct: point with y value {1}")]
+        #[display("tuple struct: point with y value")]
         struct TupleStructType(isize, isize, isize);
 
         let test_val = TupleStructType(5, 10, 15);
@@ -181,7 +177,7 @@ mod tests {
     fn tuple_struct_works_with_interpolation_of_all_fields() {
         #[derive(Debug, Error)]
         #[display(
-            "tuple struct: point {2} units in front of the origin, and with x and y coords ({0}, {1})"
+            "tuple struct: point units in front of the origin, and with x and y coords"
         )]
         struct TupleStructType(isize, isize, isize);
 

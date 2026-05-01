@@ -9,13 +9,13 @@ use syn::{
 };
 
 mod input;
-use input::{StructFormatInput, VariantFormatInput};
+use input::VariantFormatInput;
 
 mod util;
 
 pub(crate) enum TypeData {
     Struct {
-        display_input: StructFormatInput,
+        display_input: LitStr,
     },
 
     Enum {
@@ -143,9 +143,7 @@ impl ToTokens for TypeData {
     fn to_tokens(&self, tokens: &mut TokenStream2) {
         match *self {
             Self::Struct { ref display_input } => {
-                tokens.extend(quote! {
-                    ::core::write!(f, #display_input)
-                });
+                tokens.extend(quote! { #display_input });
             }
 
             Self::Enum {
@@ -159,12 +157,12 @@ impl ToTokens for TypeData {
                     })
                     .chain(default_display_input.as_ref().map(|lit_str| {
                         quote! {
-                           _ => ::core::write!(f, #lit_str)
+                           _ => #lit_str
                         }
                     }));
 
                 tokens.extend(quote! {
-                   match &self {
+                   match self {
                        #(#branches),*
                    }
                 });
@@ -201,39 +199,38 @@ type ValidVariantState = VariantState<Infallible>;
 pub(crate) struct VariantData {
     other_attrs: Vec<Attribute>,
     ident: Ident,
-    fields: Fields,
-    display_input: VariantFormatInput,
+    fields_type: FieldsType,
+    display_input: LitStr,
 }
 
 impl ToTokens for VariantData {
     fn to_tokens(&self, tokens: &mut TokenStream2) {
+        use FieldsType as FT;
+
         let Self {
             ref other_attrs,
             ref ident,
-            ref fields,
+            ref fields_type,
             ref display_input,
         } = *self;
 
-        let field_idents = fields.iter().enumerate().map(|(i, field)| {
-            field.ident.clone().unwrap_or_else(|| {
-                Ident::new(&format!("_field{i}"), field.span())
-            })
-        });
-
-        let field_tokens = match *fields {
-            Fields::Named(_) => quote! { { #(#field_idents),* } },
-            Fields::Unnamed(_) => quote! { ( #(#field_idents),* ) },
-            Fields::Unit => {
-                drop(field_idents);
-                TokenStream2::new()
-            }
+        let field_ignore_tokens = match *fields_type {
+            FT::Named => quote! { {..} },
+            FT::Unnamed => quote! { (..) },
+            FT::Unit => quote! {},
         };
 
         tokens.extend(quote! {
             #(#other_attrs)*
-            Self::#ident #field_tokens => ::core::write!(f, #display_input)
+            Self::#ident #field_ignore_tokens => #display_input
         })
     }
+}
+
+pub(crate) enum FieldsType {
+    Named,
+    Unnamed,
+    Unit,
 }
 
 #[cfg(test)]

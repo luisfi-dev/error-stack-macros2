@@ -66,7 +66,7 @@ mod tests {
             },
 
             #[display(
-                "tuple variant: point {2} units in front of the origin, and with x and y coords ({0}, {1})"
+                "tuple variant: point units in front of the origin, and with x and y coords"
             )]
             Tuple(isize, isize, isize),
         }
@@ -109,7 +109,7 @@ mod tests {
             },
 
             #[display(
-                "tuple variant: point {2} units in front of the origin, and with x and y coords ({0}, {1})"
+                "tuple variant: point units in front of the origin, and with x and y coords"
             )]
             Tuple(isize, isize, isize),
         }
@@ -151,7 +151,7 @@ mod tests {
             },
 
             #[display(
-                "tuple variant: point {2} units in front of the origin, and with x and y coords ({0}, {1})"
+                "tuple variant: point units in front of the origin, and with x and y coords"
             )]
             Tuple(isize, isize, isize),
         }

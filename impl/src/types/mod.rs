@@ -80,7 +80,7 @@ impl ToTokens for ErrorStackDeriveInput {
             #where_clause
             {
                 fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-                    #display_data
+                    f.write_str(#display_data)
                 }
             }
 

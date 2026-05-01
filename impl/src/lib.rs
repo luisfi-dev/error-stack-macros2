@@ -191,5 +191,9 @@ use types::ErrorStackDeriveInput;
 #[proc_macro_derive(Error, attributes(display))]
 pub fn impl_error_stack(input: TokenStream) -> TokenStream {
     let derive_input = parse_macro_input!(input as ErrorStackDeriveInput);
-    quote! { #derive_input }.into()
+
+    let output = quote! { #derive_input }.into();
+    println!("{output}");
+
+    output
 }

@@ -24,11 +24,9 @@ pub(crate) enum TypeData {
 impl TypeData {
     pub(crate) fn new(
         input_data: Data,
-        attrs: &mut Vec<Attribute>,
+        default_display_attr: Option<Attribute>,
         ident_span: Span,
     ) -> syn::Result<Self> {
-        let default_display_attr = super::util::take_display_attr(attrs);
-
         match input_data {
             Data::Struct(data) => {
                 let has_never_type = data
@@ -234,7 +232,7 @@ pub(crate) enum FieldsType {
     reason = "this is a test module with calls to `.expect()`"
 )]
 mod tests {
-    use crate::ErrorStackDeriveInput;
+    use crate::{ErrorStackDeriveInput, types::OtherAttributes};
 
     use super::*;
 
@@ -256,12 +254,18 @@ mod tests {
 
     #[test]
     fn struct_data_requires_display_attr() {
-        let mut derive_input: DeriveInput =
+        let derive_input: DeriveInput =
             syn::parse2(quote! { struct CustomType; })
                 .expect("malformed test stream");
+
+        let (_, display_attr) =
+            OtherAttributes::take_display_and_remove_incompatible_from(
+                derive_input.attrs,
+            );
+
         let err = TypeData::new(
             derive_input.data,
-            &mut derive_input.attrs,
+            display_attr,
             derive_input.ident.span(),
         )
         .expect_err(
@@ -275,12 +279,18 @@ mod tests {
 
     #[test]
     fn struct_data_requires_list_form_for_display_attr() {
-        let mut derive_input: DeriveInput =
+        let derive_input: DeriveInput =
             syn::parse2(quote! { #[display] struct CustomType; })
                 .expect("malformed test stream");
+
+        let (_, display_attr) =
+            OtherAttributes::take_display_and_remove_incompatible_from(
+                derive_input.attrs,
+            );
+
         let err = TypeData::new(
             derive_input.data,
-            &mut derive_input.attrs,
+            display_attr,
             derive_input.ident.span(),
         )
         .expect_err(
@@ -294,12 +304,18 @@ mod tests {
 
     #[test]
     fn enum_data_requires_display_attr() {
-        let mut derive_input: DeriveInput =
+        let derive_input: DeriveInput =
             syn::parse2(quote! { enum CustomType { One, Two } })
                 .expect("malformed test stream");
+
+        let (_, display_attr) =
+            OtherAttributes::take_display_and_remove_incompatible_from(
+                derive_input.attrs,
+            );
+
         let err = TypeData::new(
             derive_input.data,
-            &mut derive_input.attrs,
+            display_attr,
             derive_input.ident.span(),
         )
         .expect_err(
@@ -313,12 +329,18 @@ mod tests {
 
     #[test]
     fn enum_data_requires_list_form_for_display_attr() {
-        let mut derive_input: DeriveInput =
+        let derive_input: DeriveInput =
             syn::parse2(quote! { #[display] enum CustomType { One, Two } })
                 .expect("malformed test stream");
+
+        let (_, display_attr) =
+            OtherAttributes::take_display_and_remove_incompatible_from(
+                derive_input.attrs,
+            );
+
         let err = TypeData::new(
             derive_input.data,
-            &mut derive_input.attrs,
+            display_attr,
             derive_input.ident.span(),
         )
         .expect_err(
@@ -332,7 +354,7 @@ mod tests {
 
     #[test]
     fn enum_data_requires_list_form_for_display_attr_on_every_variant() {
-        let mut derive_input: DeriveInput = syn::parse2(quote! {
+        let derive_input: DeriveInput = syn::parse2(quote! {
             enum CustomType {
                 #[display]
                 One,
@@ -341,9 +363,15 @@ mod tests {
             }
         })
         .expect("malformed test stream");
+
+        let (_, display_attr) =
+            OtherAttributes::take_display_and_remove_incompatible_from(
+                derive_input.attrs,
+            );
+
         let err = TypeData::new(
             derive_input.data,
-            &mut derive_input.attrs,
+            display_attr,
             derive_input.ident.span(),
         )
         .expect_err(
@@ -357,12 +385,18 @@ mod tests {
 
     #[test]
     fn union_type_is_rejected() {
-        let mut derive_input: DeriveInput =
+        let derive_input: DeriveInput =
             syn::parse2(quote! { union CustomType { f1: u32, f2: f32 } })
                 .expect("malformed test stream");
+
+        let (_, display_attr) =
+            OtherAttributes::take_display_and_remove_incompatible_from(
+                derive_input.attrs,
+            );
+
         let err = TypeData::new(
             derive_input.data,
-            &mut derive_input.attrs,
+            display_attr,
             derive_input.ident.span(),
         )
         .expect_err(

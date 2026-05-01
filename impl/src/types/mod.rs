@@ -1,3 +1,5 @@
+use std::{borrow::Borrow, ops::Deref};
+
 use proc_macro2::TokenStream as TokenStream2;
 use quote::{ToTokens, quote};
 use syn::{
@@ -12,7 +14,7 @@ mod util;
 use util::ReducedGenerics;
 
 pub(crate) struct ErrorStackDeriveInput {
-    other_attrs: Vec<Attribute>,
+    other_attrs: OtherAttributes,
     ident: Ident,
     generics: Generics,
     display_data: TypeData,
@@ -21,14 +23,16 @@ pub(crate) struct ErrorStackDeriveInput {
 impl Parse for ErrorStackDeriveInput {
     fn parse(input: ParseStream) -> syn::Result<Self> {
         let derive_input: DeriveInput = input.parse()?;
-
         drop(derive_input.vis);
 
-        let mut attrs = derive_input.attrs;
+        let (other_attrs, display_attr) =
+            OtherAttributes::take_display_and_remove_incompatible_from(
+                derive_input.attrs,
+            );
 
         let display_data = TypeData::new(
             derive_input.data,
-            &mut attrs,
+            display_attr,
             derive_input.ident.span(),
         )?;
 
@@ -41,7 +45,7 @@ impl Parse for ErrorStackDeriveInput {
             .for_each(util::remove_generic_default);
 
         Ok(Self {
-            other_attrs: attrs,
+            other_attrs,
             ident,
             generics,
             display_data,
@@ -73,9 +77,12 @@ impl ToTokens for ErrorStackDeriveInput {
             .map(util::generic_reduced_to_ident)
             .collect();
 
+        let other_attrs_iter = other_attrs.iter();
+        let other_attrs_iter2 = other_attrs.iter();
+
         tokens.extend(quote! {
             #[allow(single_use_lifetimes)]
-            #(#other_attrs)*
+            #(#other_attrs_iter)*
             impl #generics ::core::fmt::Display for #ident #type_generics
             #where_clause
             {
@@ -85,12 +92,53 @@ impl ToTokens for ErrorStackDeriveInput {
             }
 
             #[allow(single_use_lifetimes)]
-            #(#other_attrs)*
+            #(#other_attrs_iter2)*
             impl #error_trait_generics ::core::error::Error for #ident #type_generics
             #where_clause
             {
             }
         });
+    }
+}
+
+pub(crate) struct OtherAttributes {
+    inner: Vec<Attribute>,
+}
+
+impl OtherAttributes {
+    fn take_display_and_remove_incompatible_from(
+        attrs: Vec<Attribute>,
+    ) -> (OtherAttributes, Option<Attribute>) {
+        let mut other_attrs_vec = Vec::with_capacity(attrs.capacity());
+        let mut display_attr = None::<Attribute>;
+
+        for attr in attrs {
+            if attr.path().is_ident("display") {
+                display_attr = Some(attr);
+            } else if !attr.path().is_ident("non_exhaustive") {
+                other_attrs_vec.push(attr);
+            }
+        }
+
+        let other_attrs = OtherAttributes {
+            inner: other_attrs_vec,
+        };
+
+        (other_attrs, display_attr)
+    }
+}
+
+impl Borrow<[Attribute]> for OtherAttributes {
+    fn borrow(&self) -> &[Attribute] {
+        self.inner.borrow()
+    }
+}
+
+impl Deref for OtherAttributes {
+    type Target = [Attribute];
+
+    fn deref(&self) -> &Self::Target {
+        self.inner.deref()
     }
 }
 

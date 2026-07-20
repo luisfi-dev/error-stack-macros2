@@ -18,7 +18,7 @@ proc-macro = true
 proc-macro2 = "1.0.106"
 quote = "1.0.45"
 regex = "1.12.4"
-syn = { version = "2.0.117", features = [] }
+syn = { version = "3.0.2", features = [] }
 
 [dev-dependencies]
 error-stack = "0.8.0"

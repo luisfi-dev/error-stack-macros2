@@ -2,7 +2,7 @@ use proc_macro2::TokenStream as TokenStream2;
 use quote::{ToTokens, quote};
 use syn::{
     Attribute, GenericParam, Ident, Lifetime, Path, TraitBound,
-    TraitBoundModifier, TypeParamBound,
+    TraitBoundModifiers, TypeParamBound,
     punctuated::Punctuated,
     spanned::Spanned as _,
     token::{Colon, Comma},
@@ -59,12 +59,10 @@ pub(crate) fn remove_generic_default(param: &mut GenericParam) {
     use GenericParam as GP;
     match *param {
         GP::Const(ref mut const_p) => {
-            const_p.eq_token = None;
             const_p.default = None;
         }
 
         GP::Type(ref mut type_p) => {
-            type_p.eq_token = None;
             type_p.default = None;
         }
 
@@ -113,8 +111,9 @@ pub(crate) fn add_debug_trait_bound(param: &mut GenericParam) {
         type_p.colon_token = Some(Colon(type_p.span()));
         type_p.bounds.push(TypeParamBound::Trait(TraitBound {
             paren_token: None,
-            modifier: TraitBoundModifier::None,
             lifetimes: None,
+            modifiers: TraitBoundModifiers::default(),
+            maybe: None,
             path: trait_path,
         }));
     }

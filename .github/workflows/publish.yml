@@ -9,7 +9,6 @@ permissions:
   contents: write
   discussions: write
 
-
 jobs:
   test:
     name: Run tests and publish
@@ -17,15 +16,15 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
       - name: Setup Rust toolchain
-        uses: actions-rust-lang/setup-rust-toolchain@2fcdc490d667999e01ddbbf0f2823181beef6b39
+        uses: actions-rust-lang/setup-rust-toolchain@166cdcfd11aee3cb47222f9ddb555ce30ddb9659
         with:
           components: rustfmt, clippy
 
       - name: Run RustFMT
-        uses: actions-rust-lang/rustfmt@559aa3035a47390ba96088dffa783b5d26da9326
+        uses: actions-rust-lang/rustfmt@4066006ec54a31931b9b1fddfd38f2fdf2d27143
 
       - name: Run Clippy
         run: cargo clippy --all-targets --all-features
@@ -50,10 +49,11 @@ jobs:
         run: cargo publish
 
       - name: Create GitHub release
-        uses: softprops/action-gh-release@6cbd405e2c4e67a21c47fa9e383d020e4e28b836
+        uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228
         with:
           body_path: RELEASE.md
           prerelease: true
-          name: "`error-stack-macros2` ${{ steps.get_crate_info.outputs.crate_version }}"
+          name: |
+            `error-stack-macros2` ${{ steps.get_crate_info.outputs.crate_version }}
           tag_name: v${{ steps.get_crate_info.outputs.crate_version }}
           target_commitish: stable
